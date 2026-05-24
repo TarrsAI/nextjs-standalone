@@ -42,10 +42,11 @@ cp .env.example .env.local
 pnpm dev   # http://localhost:3000
 ```
 
-If your backend is running on `:3000` too (the express-postgres
-default), change one of them — Next.js dev server and the API can't
-share a port. Either run Next on `:3001` (`next dev -p 3001`) or set
-the API's `PORT=4000`.
+Tarrs convention: frontend on `:3000`, Express backend on `:4000`,
+Python/FastAPI on `:8080`. The express-postgres / express-supabase
+templates already set `PORT=4000` in their `.env.example`, so out of
+the box this Next.js frontend at `:3000` and the API at `:4000` won't
+collide. If you change one, update `NEXT_PUBLIC_API_URL` to match.
 
 ## Cookie + CORS recipe
 
