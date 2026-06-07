@@ -12,7 +12,7 @@ HTTP. The backend can be `express-postgres`, `express-supabase`,
 
 **IS NOT**: a place to put a database. Don't add `lib/db/`, don't
 install `pg` / `sequelize` / `prisma`. If you need a database in-process,
-use `nextjs-postgres` or `nextjs-supabase` — they're built for that.
+use `nextjs-supabase` — it's built for that.
 
 The whole point of this template is the two-repo split. Keep it thin.
 
