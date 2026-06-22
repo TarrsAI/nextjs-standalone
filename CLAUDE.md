@@ -110,6 +110,7 @@ NEXT_PUBLIC_API_URL=https://your-slug.dev.tarrs.io
 - ❌ Don't hardcode the backend URL — read `NEXT_PUBLIC_API_URL` via `lib/api.ts`.
 - ❌ Don't bypass `lib/api.ts` — every backend call goes through it (it handles cookie forwarding, base URL, and error shaping).
 - ❌ Don't install FA Pro. This is a public template; the token would leak.
+- ❌ Don't hand-write a `pnpm-workspace.yaml` / `allowBuilds:` block to silence pnpm's "Ignored build scripts" warning. Native-build approval is already declared in `package.json` → `pnpm.onlyBuiltDependencies` (`sharp`, `unrs-resolver`). If you add another dep with a build script, append its name to that array — don't improvise a workspace file.
 
 ## What to do when in doubt
 
