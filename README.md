@@ -14,7 +14,7 @@ two-repo split:
 
 - Next.js 15 (App Router) + React 19 + TypeScript
 - Tailwind 4 + Font Awesome
-- Strict CSP + standard security headers (next.config.ts)
+- Standard security headers (next.config.ts) — no CSP/X-Frame-Options, so the Tarrs preview iframe and third-party additions work out of the box
 - Typed `api()` fetch wrapper that always sends cookies (`credentials: 'include'`)
 - Server-side `getUser()` for RSC-safe auth checks (forwards cookies)
 - Login/register page with mode toggle

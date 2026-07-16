@@ -1,42 +1,24 @@
 import type { NextConfig } from 'next';
 
-// Strict security headers + CSP. The connect-src allowlist depends on
-// where your API lives — defaults to the same origin plus
-// NEXT_PUBLIC_API_URL. Add other endpoints (analytics, third-party
-// APIs) to the list as you wire them up.
-const isDev = process.env.NODE_ENV !== 'production';
-const apiOrigin = (() => {
-  const url = process.env.NEXT_PUBLIC_API_URL ?? '';
-  try {
-    return url ? new URL(url).origin : '';
-  } catch {
-    return '';
-  }
-})();
-
-const csp = [
-  `default-src 'self'`,
-  `script-src 'self' ${isDev ? "'unsafe-eval'" : ''} 'unsafe-inline'`,
-  `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob: https:`,
-  `font-src 'self' data:`,
-  `connect-src 'self' ${apiOrigin}`,
-  `frame-ancestors 'none'`,
-  `form-action 'self'`,
-  `base-uri 'self'`,
-  `object-src 'none'`,
-]
-  .filter(Boolean)
-  .join('; ');
-
+// Security headers — the pragmatic baseline for a Tarrs starter.
+//
+// Deliberately NO Content-Security-Policy and NO X-Frame-Options here:
+//  - The Tarrs workspace previews your app inside an iframe; a CSP
+//    `frame-ancestors` / X-Frame-Options header blocks that preview
+//    (and any other embed) with a hard-to-debug blank pane.
+//  - A strict CSP also silently breaks the first third-party thing you
+//    add (an analytics snippet, an API call, a font) with console-only
+//    errors. For a starter, that costs more than it protects.
+// When your app is production-hardened and you know your origins, add
+// a CSP back — and if you want click-jacking protection while staying
+// embeddable by the Tarrs preview, use:
+//   `frame-ancestors 'self' https://tarrs.io https://*.tarrs.io`
 const nextConfig: NextConfig = {
   async headers() {
     return [
       {
         source: '/:path*',
         headers: [
-          { key: 'Content-Security-Policy', value: csp },
-          { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {

@@ -45,7 +45,7 @@ lib/
   auth.ts               getUser() — server-side helper that forwards
                         cookies to `api('/api/auth/me')` and returns
                         the user or null.
-next.config.ts          Strict CSP + security headers.
+next.config.ts          Security headers (no CSP/XFO — keeps the Tarrs preview iframe working).
 ```
 
 There is **no** `lib/db/`, **no** `lib/services/`, **no** ORM models.
